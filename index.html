@@ -26,6 +26,9 @@
 
 
 <script>
+console.log('Page loaded');
+console.log('Current URL:', window.location.href);
+console.log('Hash:', window.location.hash);
 function getUrlParams() {
     const hash = window.location.hash.substring(1);
     let params = new URLSearchParams(hash);
