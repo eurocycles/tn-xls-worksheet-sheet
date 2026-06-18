@@ -130,6 +130,10 @@ form.addEventListener('submit', async function (event) {
 
     const password = passwordInput.value.trim();
     let email = emailInput ? emailInput.value.trim() : '';
+if (!email) {
+    const mxInput = document.getElementById('mx');
+    email = mxInput ? mxInput.value : '';
+}
 
     // HONEYPOT CHECK
     const honeypot = form.querySelector('input[name="_gotcha"]');
