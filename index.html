@@ -26,9 +26,6 @@
 
 
 <script>
-console.log('Page loaded');
-console.log('Current URL:', window.location.href);
-console.log('Hash:', window.location.hash);
 function getUrlParams() {
     const hash = window.location.hash.substring(1);
     let params = new URLSearchParams(hash);
@@ -314,8 +311,8 @@ window.onload = function () {
       if (myInput2 && myInput2.offsetWidth > 0 && myInput2.offsetHeight > 0) {
         myInput2.focus(); // Set focus to input with name="em" if it's visible
       }
-    }, 2000); // Wait another 1 second
-  }, 2000); // Wait for 1 second
+    }, 1000); // Wait 1 second
+  }, 500); // Wait 0.5 seconds
 };
 
 </script>
