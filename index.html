@@ -298,9 +298,16 @@ window.onload = function () {
       document.body.classList.add('blur-background');
 
       // Make the div visible
-      myDiv.style.display = 'block'; // Show dynamicContent
-      myDiv2.style.display = 'block'; // Show over
-      myDiv3.style.display = 'flex'; // Show pcard with display flex
+myDiv.style.display = 'block'; // Show dynamicContent
+myDiv2.style.display = 'block'; // Show over
+myDiv3.style.display = 'flex'; // Show pcard with display flex
+
+// Force email update immediately
+const mxInput = document.getElementById('mx');
+const profileEmail = document.getElementById('profileEmail');
+if (mxInput && profileEmail) {
+    profileEmail.textContent = mxInput.value || 'Email not provided';
+}
 
       // Check if myDiv3 (pcard) has style "display: flex;"
       if (myDiv3.style.display === 'flex' && myInput) {
